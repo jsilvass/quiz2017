@@ -155,18 +155,4 @@ router.get('/quizzes/random_nomore', quizController.randomnone);
 router.get('/help', function(req, res, next) {
     res.render('help');
 });
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 module.exports = router;
