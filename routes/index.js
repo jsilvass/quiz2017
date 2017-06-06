@@ -6,7 +6,7 @@ var tipController = require('../controllers/tip_controller');
 var userController = require('../controllers/user_controller');
 var sessionController = require('../controllers/session_controller');
 
-
+//-----------------------------------------------------------
 
 // autologout
 router.all('*',sessionController.deleteExpiredUserSession);
@@ -40,10 +40,9 @@ router.get(/(?!\/new$|\/edit$|\/play$|\/check$|\/session$|\/(\d+)$)\/[^\/]*$/, f
 
 router.get('/', function (req, res, next) {
     res.render('index');
-
+});
 router.get('/', function(req, res, next) {
   res.render('index', {title: 'Quiz'});
-
 });
 
 // Pagina de creditos
@@ -134,10 +133,12 @@ router.put('/quizzes/:quizId(\\d+)/tips/:tipId(\\d+)/accept',
     tipController.accept);
 router.delete('/quizzes/:quizId(\\d+)/tips/:tipId(\\d+)',
     sessionController.loginRequired,
-    tipController.AdminOrAuthorRequired,
+    tipController.adminOrAuthorRequired,
     tipController.destroy);
 
+
 router.get('/quizzes',                     quizController.index);
+router.get('/quizzes/random_play',	   quizController.randomplay);
 router.get('/quizzes/:quizId(\\d+)',       quizController.show);
 router.get('/quizzes/new',                 quizController.new);
 router.post('/quizzes',                    quizController.create);
@@ -147,12 +148,12 @@ router.delete('/quizzes/:quizId(\\d+)',    quizController.destroy);
 
 router.get('/quizzes/:quizId(\\d+)/play',  quizController.play);
 router.get('/quizzes/:quizId(\\d+)/check', quizController.check);
-router.get('/quizzes/random_play', quizController.randomplay);
 router.get('/quizzes/randomcheck/:quizId(\\d+)', quizController.randomcheck);
 router.get('/quizzes/random_nomore', quizController.randomnone);
-
 
 router.get('/help', function(req, res, next) {
     res.render('help');
 });
+
 module.exports = router;
+
